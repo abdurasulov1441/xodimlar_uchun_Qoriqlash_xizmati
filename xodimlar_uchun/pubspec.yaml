@@ -40,6 +40,8 @@ dependencies:
   http: ^1.2.2
   provider: ^6.1.2
   d_chart: ^2.8.0
+  flutter_secure_storage: ^9.2.2
+  another_flutter_splash_screen: ^1.2.1
 
 dev_dependencies:
   flutter_test:
