@@ -12,8 +12,8 @@ import 'dart:convert';
 
 import 'package:xodimlar_uchun/front/style/app_style.dart';
 
-class QoriqlashXizmatiApp extends StatelessWidget {
-  const QoriqlashXizmatiApp({super.key});
+class XodimlarUchunApp extends StatelessWidget {
+  const XodimlarUchunApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +43,10 @@ class SplashScreenWidget extends StatelessWidget {
   Future<Widget> determineNextScreen() async {
     final storage = FlutterSecureStorage();
 
-    // Получение токена доступа и токена обновления из безопасного хранилища
     String? accessToken = await storage.read(key: 'accessToken');
     String? refreshToken = await storage.read(key: 'refreshToken');
 
     if (accessToken != null) {
-      // Проверка статуса пользователя с помощью токена доступа
       final response = await http.get(
         Uri.parse('${AppConfig.serverAddress}/api/v1/user/status'),
         headers: {
@@ -57,21 +55,17 @@ class SplashScreenWidget extends StatelessWidget {
       );
 
       if (response.statusCode == 200) {
-        // Токен доступа действителен
         return PultBoshligiHome();
       } else if (response.statusCode == 401 && refreshToken != null) {
-        // Токен доступа истек, пробуем обновить токен
         return await _refreshTokenAndRetry(refreshToken, storage);
       }
     }
-
-    // В случае ошибки или отсутствия токенов перенаправляем на экран входа
-    return LoginScreen();
+    // return LoginScreen();
+    return PultBoshligiHome();
   }
 
   Future<Widget> _refreshTokenAndRetry(
       String refreshToken, FlutterSecureStorage storage) async {
-    // Запрос на обновление токена
     final refreshResponse = await http.post(
       Uri.parse('${AppConfig.serverAddress}/api/v1/auth/refresh'),
       body: jsonEncode({'refreshToken': refreshToken}),
@@ -81,11 +75,9 @@ class SplashScreenWidget extends StatelessWidget {
     );
 
     if (refreshResponse.statusCode == 200) {
-      // Токен обновлён успешно, сохраняем новый токен доступа
       final newAccessToken = jsonDecode(refreshResponse.body)['accessToken'];
       await storage.write(key: 'accessToken', value: newAccessToken);
 
-      // Повторяем проверку статуса пользователя с новым токеном доступа
       final retryResponse = await http.get(
         Uri.parse('${AppConfig.serverAddress}/api/v1/user/status'),
         headers: {
@@ -98,8 +90,8 @@ class SplashScreenWidget extends StatelessWidget {
       }
     }
 
-    // В случае неудачи при обновлении токена или повторной проверке
-    return LoginScreen();
+    // return LoginScreen();
+    return PultBoshligiHome();
   }
 
   @override

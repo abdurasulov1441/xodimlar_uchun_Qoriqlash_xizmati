@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:steps_indicator/steps_indicator.dart';
 import 'package:xodimlar_uchun/front/components/custom_appbar.dart';
 import 'package:xodimlar_uchun/front/pages/pult_boshligi_pages/ariza_pult_boshligi.dart';
 import 'package:xodimlar_uchun/front/pages/pult_boshligi_pages/pult_boshligi_home.dart';
@@ -166,7 +168,7 @@ class CustomListView extends StatelessWidget {
                 ],
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                     flex: 1,
@@ -224,82 +226,89 @@ class CustomListView extends StatelessWidget {
                         ),
                         Divider(color: Colors.grey),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text('Protokol:',
-                                style: AppStyle.fontStyle.copyWith(
-                                    color: Colors.black, fontSize: 10)),
-                            SizedBox(width: 4),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 2.0, horizontal: 3.0),
-                              decoration: BoxDecoration(
-                                color: Colors.orange,
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                              child: Text('Kutilmoqda',
-                                  style: AppStyle.fontStyle.copyWith(
-                                      color: Colors.white, fontSize: 8)),
-                            ),
-                            Spacer(),
-                            Text('Shartnoma:',
-                                style: AppStyle.fontStyle.copyWith(
-                                    color: Colors.black, fontSize: 10)),
-                            SizedBox(width: 4),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 2.0, horizontal: 3.0),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                              child: Text('Qabul qilinmadi',
-                                  style: AppStyle.fontStyle.copyWith(
-                                      color: Colors.white, fontSize: 8)),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            )
+                            Text('1-qadam',
+                                style:
+                                    AppStyle.fontStyle.copyWith(fontSize: 10)),
+                            Text('2-qadam',
+                                style:
+                                    AppStyle.fontStyle.copyWith(fontSize: 10)),
+                            Text('3-qadam',
+                                style:
+                                    AppStyle.fontStyle.copyWith(fontSize: 10)),
+                            Text('4-qadam',
+                                style:
+                                    AppStyle.fontStyle.copyWith(fontSize: 10)),
                           ],
                         ),
-                        SizedBox(height: 4),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('AKT:',
-                                style: AppStyle.fontStyle.copyWith(
-                                    color: Colors.black, fontSize: 10)),
-                            SizedBox(width: 4),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 2.0, horizontal: 3.0),
-                              decoration: BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                              child: Text('Yuborilmadi',
-                                  style: AppStyle.fontStyle.copyWith(
-                                      color: Colors.white, fontSize: 8)),
+                            StepsIndicator(
+                              selectedStep: 0,
+                              nbSteps: 4,
+                              selectedStepColorOut: Colors.blue,
+                              selectedStepColorIn: Colors.white,
+                              doneStepColor:
+                                  const Color.fromRGBO(33, 150, 243, 1),
+                              doneLineColor: Colors.blue,
+                              undoneLineColor: Colors.blue,
+                              isHorizontal: true,
+                              lineLength: 55,
+                              doneStepSize: 10,
+                              unselectedStepSize: 10,
+                              selectedStepSize: 14,
+                              selectedStepBorderSize: 1,
+                              doneStepWidget: SvgPicture.asset(
+                                'assets/images/progres_on.svg',
+                                width: 20,
+                                height: 20,
+                              ), // Custom Widget
+                              unselectedStepWidget: SvgPicture.asset(
+                                'assets/images/progres_off.svg',
+                                width: 20,
+                                height: 20,
+                              ), // Custom Widget
+                              selectedStepWidget: SvgPicture.asset(
+                                'assets/images/progres_on.svg',
+                                width: 20,
+                                height: 20,
+                              ), // Custom Widget
+                              lineLengthCustomStep: [
+                                StepsIndicatorCustomLine(nbStep: 5, length: 200)
+                              ],
+                              enableLineAnimation: true,
+                              enableStepAnimation: true,
                             ),
-                            Spacer(),
-                            Text('Pr shartnoma:',
-                                style: AppStyle.fontStyle.copyWith(
-                                    color: Colors.black, fontSize: 10)),
-                            SizedBox(width: 4),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 2.0, horizontal: 3.0),
-                              decoration: BoxDecoration(
-                                color: Colors.purple,
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                              child: Text('Jarayonda',
-                                  style: AppStyle.fontStyle.copyWith(
-                                      color: Colors.white, fontSize: 8)),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            )
                           ],
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Bayonnoma',
+                                style:
+                                    AppStyle.fontStyle.copyWith(fontSize: 10)),
+                            Text('Shartnoma',
+                                style:
+                                    AppStyle.fontStyle.copyWith(fontSize: 10)),
+                            Text('Dalolatnoma',
+                                style:
+                                    AppStyle.fontStyle.copyWith(fontSize: 10)),
+                            Text('Shartnoma ilova',
+                                style:
+                                    AppStyle.fontStyle.copyWith(fontSize: 10)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        )
                       ],
                     ),
                   ),
@@ -309,6 +318,33 @@ class CustomListView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class CheckboxExample extends StatefulWidget {
+  @override
+  _CheckboxExampleState createState() => _CheckboxExampleState();
+}
+
+class _CheckboxExampleState extends State<CheckboxExample> {
+  bool _isChecked = false;
+
+  void _toggleCheckbox(bool? value) {
+    setState(() {
+      _isChecked = value ?? false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Checkbox(
+          value: _isChecked,
+          onChanged: _toggleCheckbox,
+        ),
+      ],
     );
   }
 }
