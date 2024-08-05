@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:xodimlar_uchun/back/api/appConfig.dart';
-import 'package:xodimlar_uchun/back/api/login/login_page.dart';
 import 'package:xodimlar_uchun/front/components/app_data_provider.dart';
 import 'package:xodimlar_uchun/front/pages/pult_boshligi_pages/pult_boshligi_home.dart';
 import 'dart:convert';
